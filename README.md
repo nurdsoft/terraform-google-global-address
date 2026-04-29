@@ -15,7 +15,6 @@ module "static_ip" {
   project_id = "my-gcp-project"
   component  = "frontend"
 }
-# Resulting address name: "frontend-static-ip"
 ```
 
 `Internal (Private Service Connect)`:
@@ -120,14 +119,14 @@ $ git push --set-upstream origin feature/abc
 | project\_id | The GCP project ID where the static IP will be reserved | `string` | n/a | yes |
 | component | Component name used to generate the address name. Resulting name: `<component>-static-ip`. Lowercase letters, numbers, hyphens; max 53 characters | `string` | n/a | yes |
 | name\_override | If set, overrides the auto-generated address name entirely. Must comply with GCP naming rules; max 63 characters | `string` | `null` | no |
-| address\_type | The type of address to reserve. `EXTERNAL` for public IPs used with load balancers; `INTERNAL` for Private Service Connect endpoints | `string` | `"EXTERNAL"` | no |
+| address\_type | The type of address to reserve. `EXTERNAL` for public IPs used with load balancers; `INTERNAL` for private services such as Private Service Connect or VPC Network Peering | `string` | `"EXTERNAL"` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
 | address\_name | The name of the reserved global address resource |
-| ip\_address | The reserved external IP address |
+| ip\_address | The reserved IP address |
 
 ## Authors
 

@@ -4,6 +4,6 @@ output "address_name" {
 }
 
 output "ip_address" {
-  description = "The reserved external IP address."
+  description = "The reserved IP address."
   value       = google_compute_global_address.this.address
 }

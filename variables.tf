@@ -25,7 +25,7 @@ variable "name_override" {
 }
 
 variable "address_type" {
-  description = "The type of address to reserve. EXTERNAL for public IPs used with load balancers; INTERNAL for Private Service Connect endpoints."
+  description = "The type of address to reserve. EXTERNAL for public IPs used with load balancers; INTERNAL for private services such as Private Service Connect or VPC Network Peering."
   type        = string
   default     = "EXTERNAL"
 
