@@ -3,4 +3,3 @@ module "static_ip" {
   project_id = "my-gcp-project"
   component  = "frontend"
 }
-# Resulting address name: "frontend-static-ip"
