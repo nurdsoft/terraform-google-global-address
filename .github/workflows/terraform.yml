@@ -1,0 +1,43 @@
+name: "Terraform"
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  terraform:
+    name: "Terraform"
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        COMP: [basic, with-name-override]
+
+    env:
+      COMP: ${{ matrix.COMP }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.6.0
+
+      - name: Terraform Format
+        id: fmt
+        run: make fmt
+
+      - name: Terraform Init
+        id: init
+        run: make init
+
+      - name: Terraform Validate
+        id: validate
+        run: make validate
