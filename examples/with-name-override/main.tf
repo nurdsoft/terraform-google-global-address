@@ -1,5 +1,5 @@
 module "static_ip" {
-  source        = "../../"
+  source        = "git::https://github.com/nurdsoft/terraform-google-global-address.git?ref=v1.0.0"
   project_id    = "my-gcp-project"
   component     = "frontend"
   name_override = "my-custom-static-ip"
