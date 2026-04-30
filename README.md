@@ -6,7 +6,7 @@ This Terraform module provisions a reserved GCP external IP address using `googl
 
 ## Usage
 
-`Basic`:
+`Basic (EXTERNAL)`:
 
 ```hcl
 module "static_ip" {
@@ -15,7 +15,18 @@ module "static_ip" {
   project_id = "my-gcp-project"
   component  = "frontend"
 }
-# Resulting address name: "frontend-static-ip"
+```
+
+`Internal (Private Service Connect)`:
+
+```hcl
+module "static_ip" {
+  source       = "nurdsoft/global-address/google"
+  version      = "1.0.0"
+  project_id   = "my-gcp-project"
+  component    = "frontend"
+  address_type = "INTERNAL"
+}
 ```
 
 `With Name Override`:
@@ -93,28 +104,29 @@ $ git push --set-upstream origin feature/abc
 | Name | Version |
 |------|---------|
 | terraform | >= 1.0 |
-| google | >= 4.0 |
+| google | ~> 6.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| google | >= 4.0 |
+| google | ~> 6.0 |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | project\_id | The GCP project ID where the static IP will be reserved | `string` | n/a | yes |
-| component | Component name used to generate the address name. Resulting name: `<component>-static-ip` | `string` | n/a | yes |
-| name\_override | If set, overrides the auto-generated address name entirely | `string` | `null` | no |
+| component | Component name used to generate the address name. Resulting name: `<component>-static-ip`. Lowercase letters, numbers, hyphens; max 53 characters | `string` | n/a | yes |
+| name\_override | If set, overrides the auto-generated address name entirely. Must comply with GCP naming rules; max 63 characters | `string` | `null` | no |
+| address\_type | The type of address to reserve. `EXTERNAL` for public IPs used with load balancers; `INTERNAL` for private services such as Private Service Connect or VPC Network Peering | `string` | `"EXTERNAL"` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
 | address\_name | The name of the reserved global address resource |
-| ip\_address | The reserved external IP address |
+| ip\_address | The reserved IP address |
 
 ## Authors
 
